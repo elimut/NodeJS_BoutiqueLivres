@@ -1,0 +1,27 @@
+<!-- Commandes -->
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="/css/orders.css">
+</head>
+
+<body>
+    <%- include ('../includes/navigation.ejs') %>
+    <main>
+        <h1>Commande</h1>
+        <% if(orders.length <= 0) { %>
+            <h2>Rien ici!</h2>
+        <% } else { %> 
+            <ul class="orders">
+                <% orders.forEach(order => { %>
+                    <li class="orders__item">
+                        <h2>Commande - # <%= order.id %> -  <a href="/orders/<%= order.id %>">Facture</a></h2>
+                        <ul class="orders__products">
+                            <% order.products.forEach(p => { %>
+                                <li class="orders__products-item"><%= p.title %> (<%= p.orderitem.quantity %>)</li>
+                            <% }); %>
+                        </ul>
+                    </li>
+                <% }); %>
+            </ul>
+        <% } %>
+    </main>
+    <%- include ('../includes/end.ejs') %>

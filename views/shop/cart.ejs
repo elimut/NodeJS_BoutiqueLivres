@@ -1,0 +1,38 @@
+<%- include('../includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/cart.css">
+</head>
+
+    <body>
+        <%- include('../includes/navigation.ejs') %>
+        <main>
+            <h1>Panier</h1>
+            <% if (products.length > 0) { %>
+                <ul class="cart__item-list">
+                    <% products.forEach(p => { %>
+                        <li class="cart__item">
+                            <h2><%= p.title %></h2>
+                            <h2>Quantity: <%= p.cartitem.quantity %></h2>
+                            <form action="/cart-delete-item?_method=DELETE" method="POST">
+                                <input type="hidden" value="<%= p.id %>" name="productId">
+                                <!-- generate csrf token, name to package can find token -->
+                                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                <button class="btn danger" type="submit">Supprimer</button>
+                            </form>
+                        </li>
+
+                    <% }) %>
+                </ul>
+                <hr>
+                <div class="centered">
+                    <!-- <form action="/create-order" method="POST"> -->
+                        <!-- generate csrf token, name to package can find token -->
+                        <!-- <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                        <button type="submit" class="btn">Commander</button>
+                    </form> -->
+                    <a class="btn" href="/checkout">Commander maintenant</a>
+                </div>
+            <% } else { %>
+                <h1>Panier vide!</h1>
+            <% } %>
+        </main>
+        <%- include('../includes/end.ejs') %>

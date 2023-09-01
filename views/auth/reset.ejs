@@ -1,0 +1,24 @@
+<%- include('../includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/forms.css">
+    <link rel="stylesheet" href="/css/auth.css">
+</head>
+
+<body>
+   <%- include('../includes/navigation.ejs') %>
+
+    <main>
+        <% if (errorMessage) { %>
+            <div class="user-message"><%= errorMessage %></div>
+        <% } %>
+        <form class="login-form" action="/reset" method="POST">
+            <div class="form-control">
+                <label for="email">E-mail</label>
+                <!-- value: getProduct in controller can get product information/ if in edit mode => vue value to update product -->
+                <input type="email" name="email" id="email">
+            </div>
+            <!-- generate csrf token, name to package can find token -->
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <button class="btn" type="submit">Réinitialiser le mot de passe</button>
+        </form>
+    </main>
+<%- include('../includes/end.ejs') %>
